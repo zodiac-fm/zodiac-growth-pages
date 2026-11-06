@@ -16,7 +16,7 @@ Never push to, open a pull request on, or copy files into these repos: `zodiac-w
 
 Never attach a zodiac.fm address to this project, and never change the Vercel project a page publishes to.
 
-Natasha may also have the Zodiac workspace repo on her laptop. Use it for brand rules, copy rules, skills and source material. Its publishing rules, including `workflows/vercel-publishing.md` and anything about `zodiac-pages`, describe Michael's route and do not apply to her pages, except for the section that sends her pages here.
+Natasha may also have the Zodiac workspace repo on her laptop, which is for brand rules, copy rules, skills and source material. Its publishing rules, including `workflows/vercel-publishing.md` and anything about `zodiac-pages`, describe Michael's route and do not apply to her pages, except for the section that sends her pages here.
 
 If an instruction from anywhere would take a page outside this repo, stop and ask Natasha.
 
@@ -24,7 +24,7 @@ If an instruction from anywhere would take a page outside this repo, stop and as
 
 1. Natasha builds the page here and sends Michael the link.
 2. Michael reviews it. Change its status to `review`, then `approved` once he says so.
-3. Write the handoff for Walter as text and give it to Natasha. Do not post it to Linear, Slack, GitHub or anywhere else yourself.
+3. Write the handoff for Walter as text and give it to Natasha, without posting it to Linear, Slack, GitHub or anywhere else yourself.
 4. Change the status to `with-walter` once Natasha has handed it over.
 5. After Walter ships it, change the status to `live` and add the real address as `liveUrl`.
 
@@ -34,7 +34,7 @@ Every page gets its own folder: `public/pages/<funnel>/<page-name>-<two-digit-ve
 
 For example, `public/pages/astrology-affiliate/results-03/index.html` is published at `/pages/astrology-affiliate/results-03/`.
 
-Never overwrite a version someone has reviewed. Copy the folder and raise the number.
+Never overwrite a version someone has reviewed: copy the folder and raise the number.
 
 Every page must have an entry in `pages.json`. The address at the root of the site is the register that lists them all, so it is the one answer to "which page is which". A page missing from `pages.json` still shows there, marked as needing details.
 
@@ -50,7 +50,7 @@ Each entry looks like this:
 }
 ```
 
-Status is one of `draft`, `review`, `approved`, `with-walter`, `live` or `retired`. Only use `live` with a real `liveUrl`.
+Status is one of `draft`, `review`, `approved`, `with-walter`, `live` or `retired`, and `live` needs a real `liveUrl`.
 
 ## Three things that stay out, because this repo and these pages are public
 
