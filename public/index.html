@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Growth Pages Register</title>
+<style>
+  :root {
+    --ground: #ffffff;
+    --ink: #1a1a1a;
+    --soft: #5c5c5c;
+    --line: #e2e2e2;
+    --link: #1a4fb0;
+    --note: #fff6dc;
+    --note-ink: #5a4300;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px 16px 64px;
+    background: var(--ground);
+    color: var(--ink);
+    font: 17px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 28px; line-height: 1.2; margin: 0 0 8px; }
+  h2 { font-size: 19px; margin: 36px 0 4px; }
+  p { margin: 0 0 12px; }
+  .lead { color: var(--soft); }
+  a { color: var(--link); }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .title { font-weight: 600; overflow-wrap: anywhere; }
+  .meta { color: var(--soft); font-size: 15px; overflow-wrap: anywhere; }
+  .flag {
+    background: var(--note);
+    color: var(--note-ink);
+    font-size: 15px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Natasha's working pages</h1>
+  <p class="lead">None of these pages are on the live Zodiac site unless the page says Live. Walter ships every page that reaches customers.</p>
+  <div id="register"><p>Loading the list of pages.</p></div>
+</main>
+<script>
+  const LABELS = {
+    'draft': 'Draft',
+    'review': 'With Michael for review',
+    'approved': 'Approved, not handed over yet',
+    'with-walter': 'With Walter to ship',
+    'live': 'Live',
+    'retired': 'Retired'
+  };
+
+  function el(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text) node.textContent = text;
+    return node;
+  }
+
+  function safeWebAddress(value) {
+    try {
+      const parsed = new URL(value);
+      return parsed.protocol === 'https:' || parsed.protocol === 'http:' ? parsed.href : '';
+    } catch (error) {
+      return '';
+    }
+  }
+
+  function row(page) {
+    const item = el('li');
+    const title = el('div', 'title');
+    if (page.url) {
+      const link = el('a', '', page.title);
+      link.href = page.url;
+      title.append(link);
+    } else {
+      title.textContent = page.title;
+    }
+    item.append(title);
+
+    const updated = page.updated ? ` · updated ${page.updated}` : '';
+    item.append(el('div', 'meta', `${LABELS[page.status]}${updated}`));
+    item.append(el('div', 'meta', page.path));
+
+    const liveUrl = safeWebAddress(page.liveUrl);
+    if (page.status === 'live' && liveUrl) {
+      const live = el('div', 'meta', 'Live at ');
+      const link = el('a', '', liveUrl);
+      link.href = liveUrl;
+      live.append(link);
+      item.append(live);
+    }
+    if (page.status === 'live' && !liveUrl) item.append(el('div', 'flag', 'Marked Live, but its live address is missing from pages.json.'));
+    if (page.needsDetails) item.append(el('div', 'flag', 'This page needs its title and status added to pages.json.'));
+    if (page.missingFolder) item.append(el('div', 'flag', 'Listed in pages.json, but its folder is missing.'));
+    return item;
+  }
+
+  fetch('/register.json', { cache: 'no-store' })
+    .then((response) => {
+      if (!response.ok) throw new Error('not found');
+      return response.json();
+    })
+    .then(({ problem, rows }) => {
+      const box = document.getElementById('register');
+      box.textContent = '';
+      if (problem) box.append(el('div', 'flag', problem));
+      if (!rows.length) {
+        box.append(el('p', '', 'No pages yet. The first page Natasha pushes will appear here.'));
+        return;
+      }
+      const funnels = [...new Set(rows.map((page) => page.funnel))];
+      for (const funnel of funnels) {
+        box.append(el('h2', '', funnel));
+        const list = el('ul');
+        rows.filter((page) => page.funnel === funnel).forEach((page) => list.append(row(page)));
+        box.append(list);
+      }
+    })
+    .catch(() => {
+      document.getElementById('register').textContent = 'The list of pages could not load. Try refreshing.';
+    });
+</script>
+</body>
+</html>

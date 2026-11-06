@@ -1,0 +1,7 @@
+{
+  "name": "zodiac-growth-pages",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-register.mjs"
+  }
+}
