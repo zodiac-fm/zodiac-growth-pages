@@ -62,4 +62,4 @@ Pictures come from the image library at https://zodiac-pages.vercel.app/site/sty
 
 ## Data
 
-Warehouse queries run from Natasha's own BigQuery login and stay on her laptop or in Looker Studio. A page shows numbers only if they are safe for the public to read.
+Natasha sees results through the company dashboards, starting with https://zodiac-funnel-dashboard.vercel.app and her zodiac.fm Google login. A page shows numbers only if they are safe for the public to read.
