@@ -7,7 +7,6 @@ export const STATUS_INFO={
  live:{label:'Live',description:'Published on the customer website. Use the separate customer-site link.'},
  retired:{label:'Retired',description:'Kept for reference and no longer in use.'}
 };
-export const START_FAMILIES=['astrology-landing','meditation-landing','example-signup'];
 const text=value=>typeof value==='string'?value:'';
 export function inferFamily(path){
  if(/^astrology-affiliate\/landing-\d+$/.test(path))return 'astrology-landing';
@@ -35,17 +34,10 @@ export function makeRegister(listed,onDisk,problem=''){
  rows.sort((a,b)=>a.funnel.localeCompare(b.funnel)||a.path.localeCompare(b.path));
  return {problem,rows};
 }
-export function partitionRows(rows){
- const families=[...START_FAMILIES,'review-guide'];
- const latest=[];
- for(const family of families){
-  const candidates=rows.filter(p=>p.family===family&&!p.missingFolder&&p.status!=='retired').sort((a,b)=>b.version-a.version||b.updated.localeCompare(a.updated)||a.path.localeCompare(b.path));
-  if(candidates[0])latest.push(candidates[0]);
- }
- const chosen=new Set(latest.map(p=>p.path));
- const older=rows.filter(p=>families.includes(p.family)&&!chosen.has(p.path));
- const versions=[...new Set(older.map(p=>p.version))].sort((a,b)=>b-a);
- return {start:latest.filter(p=>START_FAMILIES.includes(p.family)),guide:latest.find(p=>p.family==='review-guide')||null,history:versions.map(version=>({version,rows:older.filter(p=>p.version===version).sort((a,b)=>families.indexOf(a.family)-families.indexOf(b.family))})),other:rows.filter(p=>!families.includes(p.family))};
+export function groupRows(rows){
+ const order={'astrology-landing':0,'meditation-landing':1,'example-signup':2,'review-guide':3};
+ const sorted=[...rows].sort((a,b)=>(order[a.family]??4)-(order[b.family]??4)||a.version-b.version||a.path.localeCompare(b.path));
+ return {landing:sorted.filter(p=>p.family==='astrology-landing'||p.family==='meditation-landing'),signup:sorted.filter(p=>p.family==='example-signup'),guides:sorted.filter(p=>p.family==='review-guide'),other:sorted.filter(p=>!Object.hasOwn(order,p.family))};
 }
 export function previewAddress(page){
  const suffix=/^affiliate_id=\d+$/.test(page.previewQuery)?'?'+page.previewQuery:'';
@@ -53,9 +45,4 @@ export function previewAddress(page){
 }
 export function liveAddress(value){
  try{const url=new URL(value);return url.protocol==='https:'&&!url.username&&!url.password?url.href:'';}catch{return '';}
-}
-export function searchText(page){
- return [page.label,page.summary,page.title,page.path,page.family,page.status,STATUS_INFO[page.status]?.label,page.examplePartner,page.revisionNote,'version '+page.version,'version '+String(page.version).padStart(2,'0'),'v'+page.version,
- page.family==='example-signup'?'signup sign-up sample birth details results plan membership':'',
- page.family==='review-guide'?'guide walkthrough context comparison':''].join(' ');
 }

@@ -9,7 +9,8 @@ let listed=[],problem='';
 try{const parsed=JSON.parse(readFileSync('pages.json','utf8'));if(Array.isArray(parsed))listed=parsed;else problem='The page list is not in the expected format.';}catch{problem='The page list could not be read.';}
 const onDisk=folders(root).flatMap(funnel=>folders(join(root,funnel)).filter(page=>existsSync(join(root,funnel,page,'index.html'))).map(page=>funnel+'/'+page));
 const data=makeRegister(listed,onDisk,problem);
+try{const resources=JSON.parse(readFileSync('review-links.json','utf8'));data.resources=Array.isArray(resources)?resources:[];}catch{data.resources=[];}
 mkdirSync('public',{recursive:true});
 writeFileSync('public/register.json',JSON.stringify(data,null,2));
 writeFileSync('public/index.html',renderHub(readFileSync('templates/register/index.html','utf8'),data));
-console.log('Preview hub built with '+data.rows.length+' pages.'+(problem?' '+problem:''));
+console.log('GTM review register built with '+data.rows.length+' pages.'+(problem?' '+problem:''));

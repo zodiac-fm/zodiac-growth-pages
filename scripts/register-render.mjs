@@ -1,28 +1,27 @@
 
-import {STATUS_INFO,partitionRows,previewAddress,liveAddress,searchText} from './register-model.mjs';
+import {STATUS_INFO,groupRows,previewAddress,liveAddress} from './register-model.mjs';
 export const escapeHTML=value=>String(value??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");
-export function renderEntry(page,{step=null,guide=false}={}){
- const esc=escapeHTML,href=previewAddress(page);
- const info=STATUS_INFO[page.status];
- const label=guide?'Open review guide':page.family==='example-signup'?'Try example signup':page.family==='astrology-landing'?'Open astrology preview':page.family==='meditation-landing'?'Open meditation preview':'Open preview';
- const live=page.status==='live'?liveAddress(page.liveUrl):'';
- const metadata=[
- ['Version',page.version?String(page.version):'Not numbered'],['Updated',page.updated||'Not recorded'],['Status',info.description],['Original title',page.title],['Page location',page.path],...(page.revisionNote?[['About this version',page.revisionNote]]:[])
- ];
- return '<li class="page-entry'+(guide?' guide-entry':'')+'" data-page data-search="'+esc(searchText(page))+'"><article><div class="page-top">'+(step?'<span class="step-number" aria-hidden="true">'+step+'</span>':'')+'<span class="version">'+(page.version?'Version '+page.version:'Unnumbered')+'</span><span class="status">'+esc(info.label)+'</span></div><h3>'+esc(page.label)+'</h3>'+(page.summary?'<p class="page-summary">'+esc(page.summary)+'</p>':'')+(page.examplePartner?'<p class="example">Example partner: '+esc(page.examplePartner)+'</p>':'')+(href?'<a class="open-link" href="'+esc(href)+'" aria-label="'+esc(label+', version '+page.version)+'">'+esc(label)+'</a>':'<p class="issue">Preview unavailable. Its page folder is missing.</p>')+(live?'<a class="live-link" href="'+esc(live)+'">Open the published customer page</a>':'')+(page.status==='live'&&!live?'<p class="issue">Marked Live, but the customer-site address needs checking.</p>':'')+(page.needsDetails?'<p class="issue">The name or status needs to be completed.</p>':'')+'<details class="page-details"><summary>Page details</summary><dl>'+metadata.map(([k,v])=>'<div><dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd></div>').join('')+'</dl></details></article></li>';
+function table(headers,rows,kind,title){
+ if(!rows.length)return '<p class="empty">No items listed.</p>';
+ return '<div class="table-wrap" role="region" aria-label="'+escapeHTML(title)+'" tabindex="0"><table class="'+kind+'"><thead><tr>'+headers.map(h=>'<th scope="col">'+escapeHTML(h)+'</th>').join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';
 }
+function statusCell(page){
+ return '<td class="status">'+escapeHTML(STATUS_INFO[page.status].label)+(page.needsDetails?'<p class="warning">Name or status needs details.</p>':'')+'</td>';
+}
+function linkCell(page){
+ const href=previewAddress(page),live=page.status==='live'?liveAddress(page.liveUrl):'';
+ return '<td class="link">'+(href?'<a href="'+escapeHTML(href)+'" aria-label="'+escapeHTML('Open '+page.label+', version '+page.version)+'">Open preview</a>':'Unavailable')+(live?'<br><a href="'+escapeHTML(live)+'">Customer page</a>':'')+(page.status==='live'&&!live?'<p class="warning">Customer link needed.</p>':'')+'</td>';
+}
+function versionCell(page){return '<td class="version">'+(page.version?escapeHTML(page.version):'Unnumbered')+'</td>';}
 export function renderHub(template,data){
- const esc=escapeHTML,parts=partitionRows(data.rows),groups=[];
- const hasLatest=parts.start.length||parts.guide;
- groups.push('<section class="page-section" data-page-section'+(!hasLatest?' hidden':'')+' aria-labelledby="latest-title"><h2 id="latest-title">Start with the latest previews</h2><p class="section-intro">Open an audience page first. To try the full example, choose “Find my music” on that page and use the sample birth details.</p><ol class="latest-list" role="list" data-page-group>'+parts.start.map((p,i)=>renderEntry(p,{step:i+1})).join('')+'</ol>'+(parts.guide?'<ul class="guide-list" role="list" data-page-group>'+renderEntry(parts.guide,{guide:true})+'</ul>':'')+'</section>');
- if(parts.history.length)groups.push('<section class="page-section history" data-page-section aria-labelledby="history-title"><h2 id="history-title">Earlier drafts</h2><p class="section-intro">Kept for comparison. Start with the latest previews unless you are reviewing an earlier version.</p>'+parts.history.map(group=>{
- const note=group.rows.find(p=>p.revisionNote)?.revisionNote||'Earlier versions kept for comparison.';
- return '<details data-page-group><summary><span class="history-title">Version '+group.version+'</span><span class="history-subtitle">'+esc(note)+' '+group.rows.length+' pages.</span></summary><ul class="page-list" role="list">'+group.rows.map(p=>renderEntry(p)).join('')+'</ul></details>';
- }).join('')+'</section>');
- if(parts.other.length)groups.push('<section class="page-section" data-page-section aria-labelledby="other-title"><h2 id="other-title">Other previews</h2><ul class="page-list" role="list" data-page-group>'+parts.other.map(p=>renderEntry(p)).join('')+'</ul></section>');
- if(!data.rows.length)groups.push('<p class="empty">There are no preview pages yet.</p>');
- const needs=data.rows.filter(p=>p.needsDetails||p.missingFolder||(p.status==='live'&&!liveAddress(p.liveUrl)));
- const issues=data.problem||needs.length?'<aside class="issue"><h2>The list needs a quick check</h2>'+(data.problem?'<p>'+esc(data.problem)+'</p>':'')+(needs.length?'<p>'+needs.length+' '+(needs.length===1?'page needs':'pages need')+' details or a working location. Those entries remain listed below.</p>':'')+'</aside>':'';
- const statuses=Object.entries(STATUS_INFO).map(([,info])=>'<div><dt>'+esc(info.label)+'</dt><dd>'+esc(info.description)+'</dd></div>').join('');
- return template.replace('{{issues}}',issues).replace('{{groups}}',groups.join('')).replace('{{statuses}}',statuses);
+ const esc=escapeHTML,groups=groupRows(data.rows);
+ const work=table(['Work','What to review','Link'],(data.resources||[]).map(item=>'<tr><th scope="row">'+esc(item.title)+'</th><td>'+esc(item.summary)+'</td><td class="link">'+(liveAddress(item.url)?'<a href="'+esc(liveAddress(item.url))+'">Open work</a>':'Unavailable')+'</td></tr>'),'work','GTM work');
+ const landing=table(['Audience','Version','Approach','Example partner','Status','Preview'],groups.landing.map(page=>'<tr data-page="'+esc(page.path)+'"><th scope="row">'+(page.family==='astrology-landing'?'Astrology':'Meditation')+'</th>'+versionCell(page)+'<td>'+esc(page.revisionNote||page.summary)+'</td><td>'+esc(page.examplePartner||'Generic example')+'</td>'+statusCell(page)+linkCell(page)+'</tr>'),'landing','Landing pages');
+ const signup=table(['Version','What to review','Status','Preview'],groups.signup.map(page=>'<tr data-page="'+esc(page.path)+'"><th scope="row">'+esc(page.version||'Unnumbered')+'</th><td>'+esc(page.revisionNote||page.summary)+'</td>'+statusCell(page)+linkCell(page)+'</tr>'),'signup','Example signup flows');
+ const guides=table(['Version','What it covers','Status','Guide'],groups.guides.map(page=>'<tr data-page="'+esc(page.path)+'"><th scope="row">'+esc(page.version||'Unnumbered')+'</th><td>'+esc(page.revisionNote||page.summary)+'</td>'+statusCell(page)+linkCell(page)+'</tr>'),'guides','Review guides');
+ const other=groups.other.length?'<section><h2>Other previews</h2>'+table(['Page','Version','Purpose','Status','Preview'],groups.other.map(page=>'<tr data-page="'+esc(page.path)+'"><th scope="row">'+esc(page.label)+'</th>'+versionCell(page)+'<td>'+esc(page.summary||page.title)+'</td>'+statusCell(page)+linkCell(page)+'</tr>'),'other','Other previews')+'</section>':'';
+ const flagged=data.rows.filter(p=>p.needsDetails||p.missingFolder||(p.status==='live'&&!liveAddress(p.liveUrl)));
+ const issues=data.problem||flagged.length?'<p class="issue">'+esc(data.problem||'Some entries need details or a working page link. They remain listed in the tables.')+'</p>':'';
+ const values={issues,work,landing,signup,guides,other};
+ return template.replace(/\{\{(\w+)\}\}/g,(_,key)=>values[key]??'');
 }

@@ -1,22 +1,20 @@
-# Website preview hub
+# GTM review register
 November 16, 2026.
 
-The root address is the entry point for people reviewing Zodiac.fm pages without prior project context. It explains the product, the purpose of the previews, how to review, and which actions are disconnected.
+Natasha corrected the register's framing: these are different versions to review, not earlier versions to hide behind a latest-first recommendation. She requested an easy place to review GTM work and landing pages, using tables with nothing fancy.
 
-The latest available astrology page, meditation page, and example signup appear first. Their approval statuses remain visible and unchanged. The latest review guide follows as optional context. Earlier versions are grouped by version and collapsed, with a short explanation of what changed. Every page remains listed exactly once.
+The root register now contains four plain tables:
+1. GTM work, linking to the existing public strategy, membership, partner-content, and copy notes.
+2. Landing pages, with audience, version, approach, example partner, status, and preview link.
+3. Example signup flows, with each version's focus, status, and preview link.
+4. Review guides, with context for each version.
 
-Search works across audience, purpose, partner, version, original title, and path. A query opens matching earlier-version groups. Clearing it restores the latest-first view. Search doesn't send requests or store queries.
+Every version has equal visibility. No automatic latest selection, collapsed versions, cards, search, numbered start flow, or client-side rendering. Tables scroll horizontally on smaller screens and can receive keyboard focus. Header cells identify columns and rows.
 
-All links and descriptions are rendered during the build. With JavaScript off, reviewers can still open the latest previews and expand earlier-version groups. No loading screen or client-side fetch is needed to see the register.
+All 12 preview pages, their original titles, paths, approval statuses, update dates, and live URLs are preserved. Version notes now describe the approach without calling a version earlier, original, or preferred. Partner example query parameters continue to use the existing records. No landing-page content, partner category, vanity URL, offer, or production routing is changed.
 
-Page metadata lives in pages.json. Added fields are label, summary, family, revisionNote, previewQuery, and examplePartner. The original path, title, status, updated, and liveUrl fields are preserved. Missing metadata, missing folders, unknown page types, and missing live URLs remain visible rather than silently disappearing.
+pages.json owns page metadata. review-links.json owns the GTM reference links. They point to notes already available in the public preview repository. Internal project and issue URLs were not added. The register does not invent progress or copy potentially stale task statuses.
 
-The newest version in a known family is selected by its numeric suffix, excluding missing folders and retired pages. Newer does not mean approved. Status changes continue to follow CLAUDE.md. Partner examples are preview links only and don't alter Inflektion IDs, categories, vanity URLs, or production routing.
+The build renders the complete HTML and JSON register. Missing pages and unknown page families remain visible. Tests cover equal version visibility, retained records, numeric ordering, original metadata, safe addresses, working preview paths, GTM references, table semantics, and usable content without JavaScript.
 
-Implementation: templates/register/index.html, scripts/register-model.mjs, scripts/register-render.mjs, scripts/build-register.mjs, and public/assets/register/. The build creates public/register.json and the complete public/index.html.
-
-Verification covers numeric version sorting, missing-page fallbacks, retained records, safe links, escaping, original metadata preservation, collapsed history, and usable HTML without JavaScript. The search controller is checked with DOM doubles. Browser rendering, focus behavior, screen-reader announcements, mobile layout, and real taps remain unverified because browser control and local execution are unavailable in this session.
-
-No landing-page copy, sample flow, offer, approval status, or production page is changed.
-
-In this session, 125 model, content, metadata, and search-controller assertions passed. Search was tested with DOM doubles, not a browser. Two native URL checks are deferred to the build. Script syntax checks passed. The build validates earlier page versions before generating this hub.
+Browser rendering, actual keyboard scrolling, screen-reader behavior, and mobile appearance remain unverified because no browser-control tool is available in this session.
