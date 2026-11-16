@@ -26,5 +26,33 @@
     "status": "draft",
     "updated": "2026-11-16",
     "liveUrl": ""
+  },
+  {
+    "path": "astrology-affiliate/landing-02",
+    "title": "Astrology 02: the music, approved proof, and paid value",
+    "status": "draft",
+    "updated": "2026-11-16",
+    "liveUrl": ""
+  },
+  {
+    "path": "meditation-affiliate/landing-02",
+    "title": "Meditation 02: listening lengths, approved proof, and paid value",
+    "status": "draft",
+    "updated": "2026-11-16",
+    "liveUrl": ""
+  },
+  {
+    "path": "affiliate-preview/birth-details-02",
+    "title": "Journey 02: meaningful example results and explicit membership choice",
+    "status": "draft",
+    "updated": "2026-11-16",
+    "liveUrl": ""
+  },
+  {
+    "path": "affiliate-preview/review-02",
+    "title": "Affiliate version 02 review and comparison links",
+    "status": "draft",
+    "updated": "2026-11-16",
+    "liveUrl": ""
   }
 ]
