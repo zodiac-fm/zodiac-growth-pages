@@ -4,83 +4,143 @@
     "title": "Astrology affiliate: chart curiosity to personal music",
     "status": "draft",
     "updated": "2026-11-16",
-    "liveUrl": ""
+    "liveUrl": "",
+    "family": "astrology-landing",
+    "label": "Astrology landing page",
+    "summary": "For visitors interested in astrology, birth charts, and understanding themselves.",
+    "previewQuery": "affiliate_id=51502",
+    "examplePartner": "Astrology Hub",
+    "revisionNote": "First concepts and the original example flow."
   },
   {
     "path": "meditation-affiliate/landing-01",
     "title": "Meditation affiliate: personal music alongside an existing practice",
     "status": "draft",
     "updated": "2026-11-16",
-    "liveUrl": ""
+    "liveUrl": "",
+    "family": "meditation-landing",
+    "label": "Meditation landing page",
+    "summary": "For visitors who want personal music alongside meditation or an existing practice.",
+    "previewQuery": "affiliate_id=18301",
+    "examplePartner": "Denver Zen Den",
+    "revisionNote": "First concepts and the original example flow."
   },
   {
     "path": "affiliate-preview/birth-details-01",
     "title": "Disconnected birth details, illustrative results, and plan selection",
     "status": "draft",
     "updated": "2026-11-16",
-    "liveUrl": ""
+    "liveUrl": "",
+    "family": "example-signup",
+    "label": "Example signup",
+    "summary": "Try sample birth details, view example results, and compare the two membership plans.",
+    "revisionNote": "First concepts and the original example flow."
   },
   {
     "path": "affiliate-preview/review-01",
     "title": "Affiliate concepts: partner examples and review guide",
     "status": "draft",
     "updated": "2026-11-16",
-    "liveUrl": ""
+    "liveUrl": "",
+    "family": "review-guide",
+    "label": "Review guide",
+    "summary": "See what changed, compare partner examples, and read what still needs checking.",
+    "revisionNote": "First concepts and the original example flow."
   },
   {
     "path": "astrology-affiliate/landing-02",
     "title": "Astrology 02: the music, approved proof, and paid value",
     "status": "draft",
     "updated": "2026-11-16",
-    "liveUrl": ""
+    "liveUrl": "",
+    "family": "astrology-landing",
+    "label": "Astrology landing page",
+    "summary": "For visitors interested in astrology, birth charts, and understanding themselves.",
+    "previewQuery": "affiliate_id=52145",
+    "examplePartner": "Molly McCord",
+    "revisionNote": "More music detail, listener accounts, and a plan comparison."
   },
   {
     "path": "meditation-affiliate/landing-02",
     "title": "Meditation 02: listening lengths, approved proof, and paid value",
     "status": "draft",
     "updated": "2026-11-16",
-    "liveUrl": ""
+    "liveUrl": "",
+    "family": "meditation-landing",
+    "label": "Meditation landing page",
+    "summary": "For visitors who want personal music alongside meditation or an existing practice.",
+    "previewQuery": "affiliate_id=14085",
+    "examplePartner": "Heartspace / David McEwen",
+    "revisionNote": "More music detail, listener accounts, and a plan comparison."
   },
   {
     "path": "affiliate-preview/birth-details-02",
     "title": "Journey 02: meaningful example results and explicit membership choice",
     "status": "draft",
     "updated": "2026-11-16",
-    "liveUrl": ""
+    "liveUrl": "",
+    "family": "example-signup",
+    "label": "Example signup",
+    "summary": "Try sample birth details, view example results, and compare the two membership plans.",
+    "revisionNote": "More music detail, listener accounts, and a plan comparison."
   },
   {
     "path": "affiliate-preview/review-02",
     "title": "Affiliate version 02 review and comparison links",
     "status": "draft",
     "updated": "2026-11-16",
-    "liveUrl": ""
+    "liveUrl": "",
+    "family": "review-guide",
+    "label": "Review guide",
+    "summary": "See what changed, compare partner examples, and read what still needs checking.",
+    "revisionNote": "More music detail, listener accounts, and a plan comparison."
   },
   {
     "path": "astrology-affiliate/landing-03",
     "title": "Astrology 03: come home to the self your chart describes",
     "status": "draft",
     "updated": "2026-11-16",
-    "liveUrl": ""
+    "liveUrl": "",
+    "family": "astrology-landing",
+    "label": "Astrology landing page",
+    "summary": "For visitors interested in astrology, birth charts, and understanding themselves.",
+    "previewQuery": "affiliate_id=52145",
+    "examplePartner": "Molly McCord",
+    "revisionNote": "Warmer spiritual copy and a simpler invitation."
   },
   {
     "path": "meditation-affiliate/landing-03",
     "title": "Meditation 03: music for returning to yourself",
     "status": "draft",
     "updated": "2026-11-16",
-    "liveUrl": ""
+    "liveUrl": "",
+    "family": "meditation-landing",
+    "label": "Meditation landing page",
+    "summary": "For visitors who want personal music alongside meditation or an existing practice.",
+    "previewQuery": "affiliate_id=14085",
+    "examplePartner": "Heartspace / David McEwen",
+    "revisionNote": "Warmer spiritual copy and a simpler invitation."
   },
   {
     "path": "affiliate-preview/birth-details-03",
     "title": "Journey 03: warmer copy with a clear sample flow",
     "status": "draft",
     "updated": "2026-11-16",
-    "liveUrl": ""
+    "liveUrl": "",
+    "family": "example-signup",
+    "label": "Example signup",
+    "summary": "Try sample birth details, view example results, and compare the two membership plans.",
+    "revisionNote": "Warmer spiritual copy and a simpler invitation."
   },
   {
     "path": "affiliate-preview/review-03",
     "title": "Affiliate copy 03 review",
     "status": "draft",
     "updated": "2026-11-16",
-    "liveUrl": ""
+    "liveUrl": "",
+    "family": "review-guide",
+    "label": "Review guide",
+    "summary": "See what changed, compare partner examples, and read what still needs checking.",
+    "revisionNote": "Warmer spiritual copy and a simpler invitation."
   }
 ]
