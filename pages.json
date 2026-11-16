@@ -54,5 +54,33 @@
     "status": "draft",
     "updated": "2026-11-16",
     "liveUrl": ""
+  },
+  {
+    "path": "astrology-affiliate/landing-03",
+    "title": "Astrology 03: come home to the self your chart describes",
+    "status": "draft",
+    "updated": "2026-11-16",
+    "liveUrl": ""
+  },
+  {
+    "path": "meditation-affiliate/landing-03",
+    "title": "Meditation 03: music for returning to yourself",
+    "status": "draft",
+    "updated": "2026-11-16",
+    "liveUrl": ""
+  },
+  {
+    "path": "affiliate-preview/birth-details-03",
+    "title": "Journey 03: warmer copy with a clear sample flow",
+    "status": "draft",
+    "updated": "2026-11-16",
+    "liveUrl": ""
+  },
+  {
+    "path": "affiliate-preview/review-03",
+    "title": "Affiliate copy 03 review",
+    "status": "draft",
+    "updated": "2026-11-16",
+    "liveUrl": ""
   }
 ]
