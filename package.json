@@ -2,6 +2,7 @@
   "name": "zodiac-growth-pages",
   "private": true,
   "scripts": {
-    "build": "node scripts/build-register.mjs"
+    "build": "node scripts/build-affiliate-01.mjs && node scripts/check-affiliate-01.mjs && node scripts/build-register.mjs",
+    "check:affiliate": "node scripts/check-affiliate-01.mjs"
   }
 }

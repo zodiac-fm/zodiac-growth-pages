@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "path": "astrology-affiliate/landing-01",
+    "title": "Astrology affiliate: chart curiosity to personal music",
+    "status": "draft",
+    "updated": "2026-11-16",
+    "liveUrl": ""
+  },
+  {
+    "path": "meditation-affiliate/landing-01",
+    "title": "Meditation affiliate: personal music alongside an existing practice",
+    "status": "draft",
+    "updated": "2026-11-16",
+    "liveUrl": ""
+  },
+  {
+    "path": "affiliate-preview/birth-details-01",
+    "title": "Disconnected birth details, illustrative results, and plan selection",
+    "status": "draft",
+    "updated": "2026-11-16",
+    "liveUrl": ""
+  },
+  {
+    "path": "affiliate-preview/review-01",
+    "title": "Affiliate concepts: partner examples and review guide",
+    "status": "draft",
+    "updated": "2026-11-16",
+    "liveUrl": ""
+  }
+]
